@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
+import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'dental.urls'
@@ -125,6 +129,8 @@ STATICFILES_DIRS = [
 
 ]
 
+STATICFILES_STORAGE = 'Whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # real time sending email
 '''
 EMAIL_HOST = 'smtp.gmail.com'
@@ -143,4 +149,7 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 
 # command to rum im terminal :- python -m smtpd -n -c DebuggingServer localhost:1025
+
+django_heroku.settings(locals())
+
 
